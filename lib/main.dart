@@ -11,4 +11,9 @@ void main() async {
 
   await initDependencies();
 
+  runapp(
+    const app(),
+  );
+}
+
   
