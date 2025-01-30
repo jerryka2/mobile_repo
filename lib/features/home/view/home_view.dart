@@ -133,7 +133,7 @@ class HomeScreenContent extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                   child: _buildStationCard("Electra Station", "Open - 24hr",
-                      'assets/images/evstation2.png')),
+                      'assets/images/logo.png')),
             ],
           ),
         ],
