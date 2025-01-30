@@ -72,8 +72,8 @@ _initLoginDependencies() async {
   );
 }
 
-// _initSplashScreenDependencies() async {
-//   getIt.registerFactory<SplashCubit>(
-//     () => SplashCubit(getIt<LoginBloc>()),
-//   );
-// }
+_initSplashScreenDependencies() async {
+  getIt.registerFactory<SplashCubit>(
+    () => SplashCubit(getIt<LoginBloc>()),
+  );
+}
