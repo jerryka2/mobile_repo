@@ -1,49 +1,57 @@
-// class RegisterUserParams extends Equatable {
-//   final String fname;
-//   final String lname;
-//   final String phone;
-//   final String username;
-//   final String password;
-//   final String? image;
+import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
+import 'package:sprint4_fix/app/use_case/use_case.dart';
+import 'package:sprint4_fix/features/auth/domain/entity/auth_entity.dart';
+import 'package:sprint4_fix/features/auth/domain/repository/auth_repository.dart';
 
-//   const RegisterUserParams({
-//     required this.fname,
-//     required this.lname,
-//     required this.phone,
-//     required this.username,
-//     required this.password,
-//     this.image,
-//   });
+import '../../../../core/error/failure.dart';
 
-//   //intial constructor
-//   const RegisterUserParams.initial({
-//     required this.fname,
-//     required this.lname,
-//     required this.phone,
-//     required this.username,
-//     required this.password,
-//     this.image,
-//   });
+class RegisterUserParams extends Equatable {
+  final String fname;
+  final String lname;
+  final String phone;
+  final String username;
+  final String password;
+  final String? image;
 
-//   @override
-//   List<Object?> get props => [fname, lname, phone, username, password];
-// }
+  const RegisterUserParams({
+    required this.fname,
+    required this.lname,
+    required this.phone,
+    required this.username,
+    required this.password,
+    this.image,
+  });
 
-// class RegisterUseCase implements UsecaseWithParams<void, RegisterUserParams> {
-//   final IAuthRepository repository;
+  //intial constructor
+  const RegisterUserParams.initial({
+    required this.fname,
+    required this.lname,
+    required this.phone,
+    required this.username,
+    required this.password,
+    this.image,
+  });
 
-//   RegisterUseCase(this.repository);
+  @override
+  List<Object?> get props => [fname, lname, phone, username, password];
+}
 
-//   @override
-//   Future<Either<Failure, void>> call(RegisterUserParams params) {
-//     final authEntity = AuthEntity(
-//       fName: params.fname,
-//       lName: params.lname,
-//       phone: params.phone,
-//       username: params.username,
-//       password: params.password,
-//       image: params.image, 
-//     );
-//     return repository.registercustomer(authEntity);
-//   }
-// }
+class RegisterUseCase implements UsecaseWithParams<void, RegisterUserParams> {
+  final IAuthRepository repository;
+
+  RegisterUseCase(this.repository);
+
+  @override
+  Future<Either<Failure, void>> call(RegisterUserParams params) {
+    final authEntity = AuthEntity(
+      fName: params.fname,
+      lName: params.lname,
+      phone: params.phone,
+      username: params.username,
+      password: params.password,
+      image: params.image,
+    );
+    return repository.registercustomer(authEntity);
+  }
+}
