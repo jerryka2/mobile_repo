@@ -1,6 +1,8 @@
-// lib/features/auth/presentation/view/register_view.dart
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../view_model/signup/register_bloc.dart';
 
@@ -18,6 +20,46 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  File? _image;
+
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
+  void _showImagePicker() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text('Camera'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Gallery'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +76,16 @@ class _RegisterViewState extends State<RegisterView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-                Center(
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    height: size.height * 0.15,
+                GestureDetector(
+                  onTap: _showImagePicker,
+                  child: CircleAvatar(
+                    radius: size.height * 0.075,
+                    backgroundColor: Colors.grey.shade200,
+                    backgroundImage: _image != null ? FileImage(_image!) : null,
+                    child: _image == null
+                        ? const Icon(Icons.camera_alt,
+                            size: 40, color: Colors.grey)
+                        : null,
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -199,7 +247,6 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
               ],
             ),
           ),
