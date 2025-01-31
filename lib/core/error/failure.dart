@@ -18,10 +18,15 @@ class LocalDatabaseFailure extends Failure {
 
 class ApiFailure extends Failure {
   @override
-  final int statusCode;
-
+  final int? statusCode;
   ApiFailure({
-    required this.statusCode,
+    this.statusCode,
+    required super.message,
+  });
+}
+
+class SharedPrefsFailure extends Failure {
+  SharedPrefsFailure({
     required super.message,
   });
 }
