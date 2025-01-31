@@ -20,6 +20,9 @@ class RegisterState {
     return RegisterState(
       isLoading: isLoading ?? this.isLoading,
       isSuccess: isSuccess ?? this.isSuccess,
+      imageName: imageName ?? this.imageName,
     );
   }
+
+  List<Object?> get props => [isLoading, isSuccess, imageName];
 }
