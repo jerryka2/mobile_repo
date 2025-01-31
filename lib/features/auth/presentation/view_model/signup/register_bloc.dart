@@ -10,12 +10,15 @@ part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterUseCase _registerUseCase;
+  final UploadImageUseCase _uploadImageUseCase;
 
   RegisterBloc({
     required RegisterUseCase registerUseCase,
   })  : _registerUseCase = registerUseCase,
+        _uploadImageUseCase = uploadImageUseCase,
         super(RegisterState.initial()) {
     on<Registercustomer>(_onRegisterEvent);
+    on<UploadImage>(_onLoadImage);
   }
 
   void _onRegisterEvent(
@@ -40,4 +43,27 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       },
     );
   }
+
+  void _onLoadImage(
+    UploadImage event,
+    Emitter<RegisterState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+    final result = await _uploadImageUseCase.call(UploadImageParams(
+      file: event.file,
+    ));
+
+    result.fold(
+      (l) => emit(state.copyWith(isLoading: false, isSuccess: false)),
+      (r) {
+        emit(state.copyWith(isLoading: false, isSuccess: true))
+      },
+    );
+  }
+
+
+
+
+
+
 }
