@@ -49,7 +49,7 @@ class AuthRemoteDatasource implements IAuthDataSource {
         ),
       });
       Response response = await _dio.post(
-        ApiEndpoints.UploadImage,
+        ApiEndpoints.uploadImage,
         data: formData,
       );
 
