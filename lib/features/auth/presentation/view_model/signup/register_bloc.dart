@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:sprint4_fix/core/common/snackbar/my_snackbar.dart';
+import 'package:sprint4_fix/features/auth/domain/use_case/upload_image_usecase.dart';
 
 import '../../../domain/use_case/register_user_usecase.dart';
 
@@ -10,10 +13,11 @@ part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterUseCase _registerUseCase;
-  final UploadImageUseCase _uploadImageUseCase;
+  final UploadImageUsecase _uploadImageUseCase;
 
   RegisterBloc({
     required RegisterUseCase registerUseCase,
+    required UploadImageUsecase uploadImageUseCase,
   })  : _registerUseCase = registerUseCase,
         _uploadImageUseCase = uploadImageUseCase,
         super(RegisterState.initial()) {
@@ -56,14 +60,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     result.fold(
       (l) => emit(state.copyWith(isLoading: false, isSuccess: false)),
       (r) {
-        emit(state.copyWith(isLoading: false, isSuccess: true))
+        emit(state.copyWith(isLoading: false, isSuccess: true));
       },
     );
   }
-
-
-
-
-
-
 }
