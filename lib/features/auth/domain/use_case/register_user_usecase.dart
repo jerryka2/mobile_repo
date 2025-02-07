@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:sprint4_fix/app/use_case/use_case.dart';
-import 'package:sprint4_fix/features/auth/domain/entity/auth_entity.dart';
-import 'package:sprint4_fix/features/auth/domain/repository/auth_repository.dart';
 
+import '../../../../app/use_case/use_case.dart';
 import '../../../../core/error/failure.dart';
+import '../entity/auth_entity.dart';
+import '../repository/auth_repository.dart';
 
 class RegisterUserParams extends Equatable {
   final String fname;
@@ -45,8 +45,8 @@ class RegisterUseCase implements UsecaseWithParams<void, RegisterUserParams> {
   @override
   Future<Either<Failure, void>> call(RegisterUserParams params) {
     final authEntity = AuthEntity(
-      fName: params.fname,
-      lName: params.lname,
+      fname: params.fname,
+      lname: params.lname,
       phone: params.phone,
       username: params.username,
       password: params.password,
