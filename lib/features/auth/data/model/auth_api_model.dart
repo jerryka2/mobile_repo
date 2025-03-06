@@ -11,8 +11,8 @@ class AuthApiModel extends Equatable {
   final String fname;
   final String lname;
   final String? image;
-  final String phone;
-  final String username;
+  final String email;
+  final String name;
   final String password;
 
   const AuthApiModel({
@@ -20,8 +20,8 @@ class AuthApiModel extends Equatable {
     required this.fname,
     required this.lname,
     required this.image,
-    required this.phone,
-    required this.username,
+    required this.email,
+    required this.name,
     required this.password,
   });
 
@@ -38,8 +38,8 @@ class AuthApiModel extends Equatable {
       fname: fname,
       lname: lname,
       image: image,
-      phone: phone,
-      username: username,
+      email: email,
+      name: name,
       password: password,
     );
   }
@@ -50,13 +50,13 @@ class AuthApiModel extends Equatable {
       fname: entity.fname,
       lname: entity.lname,
       image: entity.image,
-      phone: entity.phone,
-      username: entity.username,
+      email: entity.email,
+      name: entity.name,
       password: entity.password,
     );
   }
 
   @override
   List<Object?> get props =>
-      [customerId, fname, lname, image, phone, username, password];
+      [customerId, fname, lname, image, email, name, password];
 }

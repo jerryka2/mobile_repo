@@ -18,16 +18,16 @@ class AuthLocalDataSource implements IAuthDataSource {
       fname: "",
       lname: "",
       image: null,
-      phone: "",
-      username: "",
+      email: "",
+      name: "",
       password: "",
     ));
   }
 
   @override
-  Future<String> logincustomer(String username, String password) async {
+  Future<String> logincustomer(String name, String password) async {
     try {
-      await _hiveService.login(username, password);
+      await _hiveService.login(name, password);
       return Future.value("Success");
     } catch (e) {
       return Future.error(e);
