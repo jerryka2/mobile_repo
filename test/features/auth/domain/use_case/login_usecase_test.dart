@@ -17,7 +17,7 @@ void main() {
     tokenSharedPrefs = MockTokenSharedPrefs();
     usecase = LoginUseCase(repository, tokenSharedPrefs);
 
-    registerFallbackValue(const LoginParams(username: '', password: ''));
+    registerFallbackValue(const LoginParams(email: '', password: ''));
 
     // Mock getToken to return a valid token
     when(() => tokenSharedPrefs.getToken())
@@ -33,9 +33,9 @@ void main() {
       () async {
     when(() => repository.logincustomer(any(), any())).thenAnswer(
       (invocation) async {
-        final username = invocation.positionalArguments[0] as String;
+        final email = invocation.positionalArguments[0] as String;
         final password = invocation.positionalArguments[1] as String;
-        if (username == 'suman' && password == '1234') {
+        if (email == 'suman' && password == '1234') {
           return const Right('token');
         } else {
           return Left(ApiFailure(message: 'Invalid email or password'));
@@ -50,7 +50,7 @@ void main() {
         .thenAnswer((_) async => const Right('mocked_token'));
 
     final result = await usecase(const LoginParams(
-      username: 'suman',
+      email: 'suman',
       password: '1234',
     ));
 
