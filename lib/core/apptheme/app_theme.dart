@@ -1,89 +1,126 @@
 import 'package:flutter/material.dart';
 
-ThemeData getApplicationTheme() {
+ThemeData getApplicationTheme({required bool isDarkMode}) {
+  // Common properties shared between light and dark themes
+  const Color primaryColor = Color(0xff07DEA3); // Teal-like color
+  final Color scaffoldBackgroundColor =
+      isDarkMode ? Colors.grey[900]! : Colors.white;
+  const String fontFamily = 'Monstserrat';
+
   return ThemeData(
+    // Set brightness based on isDarkMode
+    brightness: isDarkMode ? Brightness.dark : Brightness.light,
+
     // Primary color for the app
-    primaryColor: const Color(0xff07DEA3),
-    scaffoldBackgroundColor: Colors.white, // Background color for scaffolds
-    fontFamily: 'Monstserrat', // Default font family
+    primaryColor: primaryColor,
+
+    // Background color for scaffolds
+    scaffoldBackgroundColor: scaffoldBackgroundColor,
+
+    // Default font family
+    fontFamily: fontFamily,
 
     // Elevated button styling
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle: const TextStyle(
           fontSize: 16,
-          color: Colors.white, // Text color for buttons
+          color: Colors.white, // Text color stays white for contrast
           fontWeight: FontWeight.bold,
-          fontFamily: 'Monstserrat',
+          fontFamily: fontFamily,
         ),
-        backgroundColor: const Color(0xff07DEA3), // Button background color
+        backgroundColor: primaryColor, // Button background stays consistent
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5), // Rounded corners
+          borderRadius: BorderRadius.circular(5),
         ),
       ),
     ),
 
     // App bar styling
-    appBarTheme: const AppBarTheme(
-      centerTitle: true, // Center-align the title
-      color: Color(0xff07DEA3), // AppBar background color
-      elevation: 4, // AppBar shadow elevation
-      shadowColor: Colors.black, // Shadow color
-      titleTextStyle: TextStyle(
-        fontSize: 20, // Title text size
-        color: Colors.white, // Title text color
-        fontWeight: FontWeight.bold, // Title text weight
-        fontFamily: 'Monstserrat Bold', // Title font family
+    appBarTheme: AppBarTheme(
+      centerTitle: true,
+      color: primaryColor, // AppBar stays teal
+      elevation: 4,
+      shadowColor: isDarkMode
+          ? Colors.black
+          : Colors.grey[800], // Adjust shadow for dark mode
+      titleTextStyle: const TextStyle(
+        fontSize: 20,
+        color: Colors.white, // White text for contrast
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Monstserrat Bold',
       ),
     ),
 
     // Input field styling
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: Colors.white, // Input field background color
+      fillColor: isDarkMode
+          ? Colors.grey[800]
+          : Colors.white, // Dark grey for dark mode
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8), // Rounded corners for inputs
+        borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(
-          color: Color(0xff07DEA3), // Border color
+          color: primaryColor,
           width: 2,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(
-          color: Color(0xff07DEA3), // Enabled border color
+        borderSide: BorderSide(
+          color: isDarkMode
+              ? Colors.grey[600]!
+              : primaryColor, // Softer border in dark mode
           width: 2,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(
-          color: Color(0xff07DEA3), // Focused border color
+          color: primaryColor, // Highlighted in teal when focused
           width: 2,
         ),
       ),
-      hintStyle: const TextStyle(
-        color: Colors.black45, // Hint text color
+      hintStyle: TextStyle(
+        color: isDarkMode
+            ? Colors.grey[400]
+            : Colors.black45, // Lighter hint in dark mode
       ),
-      labelStyle: const TextStyle(
-        color: Colors.black54, // Label text color
+      labelStyle: TextStyle(
+        color: isDarkMode
+            ? Colors.grey[300]
+            : Colors.black54, // Lighter label in dark mode
       ),
     ),
 
     // Text theme for various components
-    textTheme: const TextTheme(
+    textTheme: TextTheme(
       titleLarge: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Color(0xff3454A4), // Title text color
-        fontFamily: 'Monstserrat',
+        color: isDarkMode
+            ? Colors.white
+            : const Color(0xff3454A4), // White in dark mode
+        fontFamily: fontFamily,
       ),
-      labelLarge: TextStyle(
+      labelLarge: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.bold,
-        color: Colors.white, // Button text color
-        fontFamily: 'Monstserrat',
+        color: Colors.white, // Button text stays white
+        fontFamily: fontFamily,
       ),
+    ),
+
+    // Additional adjustments for dark mode
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: Colors.teal, // Matches your primaryColor
+      brightness: isDarkMode ? Brightness.dark : Brightness.light,
+      backgroundColor: scaffoldBackgroundColor,
+    ).copyWith(
+      surface:
+          isDarkMode ? Colors.grey[850] : Colors.white, // Surface (cards, etc.)
+      onSurface:
+          isDarkMode ? Colors.white : Colors.black, // Text/icons on surfaces
     ),
   );
 }
