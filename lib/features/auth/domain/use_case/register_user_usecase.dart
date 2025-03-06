@@ -9,16 +9,16 @@ import '../repository/auth_repository.dart';
 class RegisterUserParams extends Equatable {
   final String fname;
   final String lname;
-  final String phone;
-  final String username;
+  final String email;
+  final String name;
   final String password;
   final String? image;
 
   const RegisterUserParams({
     required this.fname,
     required this.lname,
-    required this.phone,
-    required this.username,
+    required this.email,
+    required this.name,
     required this.password,
     this.image,
   });
@@ -27,14 +27,14 @@ class RegisterUserParams extends Equatable {
   const RegisterUserParams.initial({
     required this.fname,
     required this.lname,
-    required this.phone,
-    required this.username,
+    required this.email,
+    required this.name,
     required this.password,
     this.image,
   });
 
   @override
-  List<Object?> get props => [fname, lname, phone, username, password];
+  List<Object?> get props => [fname, lname, email, name, password];
 }
 
 class RegisterUseCase implements UsecaseWithParams<void, RegisterUserParams> {
@@ -47,8 +47,8 @@ class RegisterUseCase implements UsecaseWithParams<void, RegisterUserParams> {
     final authEntity = AuthEntity(
       fname: params.fname,
       lname: params.lname,
-      phone: params.phone,
-      username: params.username,
+      email: params.email,
+      name: params.name,
       password: params.password,
       image: params.image,
     );
