@@ -1,4 +1,3 @@
-
 part of 'login_bloc.dart';
 
 sealed class LoginEvent extends Equatable {
@@ -30,12 +29,12 @@ class NavigateHomeScreenEvent extends LoginEvent {
 
 class LogincustomerEvent extends LoginEvent {
   final BuildContext context;
-  final String username;
+  final String email;
   final String password;
 
   const LogincustomerEvent({
     required this.context,
-    required this.username,
+    required this.email,
     required this.password,
   });
 }
