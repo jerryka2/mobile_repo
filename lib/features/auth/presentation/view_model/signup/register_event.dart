@@ -21,8 +21,8 @@ class Registercustomer extends RegisterEvent {
   final BuildContext context;
   final String fName;
   final String lName;
-  final String phone;
-  final String username;
+  final String email;
+  final String name;
   final String password;
   final String? image;
 
@@ -30,8 +30,8 @@ class Registercustomer extends RegisterEvent {
     required this.context,
     required this.fName,
     required this.lName,
-    required this.phone,
-    required this.username,
+    required this.email,
+    required this.name,
     required this.password,
     this.image,
   });
